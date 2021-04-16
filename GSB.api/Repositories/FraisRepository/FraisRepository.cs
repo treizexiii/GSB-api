@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GSB.api.Data;
 using GSB.Shared.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace GSB.api.Repositories.FraisRepository

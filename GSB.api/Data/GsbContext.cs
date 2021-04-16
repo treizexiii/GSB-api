@@ -94,14 +94,13 @@ namespace GSB.api.Data
                 }
             );
 
-            modelBuilder.Entity<GSBapiUser>().HasData(
-                new GSBapiUser
-                {
-                    UserName = "rougierjo",
-                    Password = "password",
-                    VisiteurId = 1
-                }
-            );
+            // modelBuilder.Entity<GSBapiUser>().HasData(
+            //     new GSBapiUser
+            //     {
+            //         VisiteurId = 1,
+            //         UserName = "rougierjo",
+            //     }
+            // );
         }
     }
 }

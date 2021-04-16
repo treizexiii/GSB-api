@@ -18,6 +18,7 @@ namespace GSB.api.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllFrais(int id) {
             return Ok(await _fraisRepository.GetAllFrais(id));
         }

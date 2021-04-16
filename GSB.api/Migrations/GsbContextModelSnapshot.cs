@@ -264,9 +264,6 @@ namespace GSB.api.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -283,7 +280,6 @@ namespace GSB.api.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -303,22 +299,6 @@ namespace GSB.api.Migrations
                     b.HasIndex("VisiteurId");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "c7a9753a-972a-469f-b663-da19bcba24f7",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "0e426e2d-3be3-4156-8c0e-285d918cac5e",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Password = "password",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e4a84bbf-5cee-45b7-a767-43534f98081d",
-                            TwoFactorEnabled = false,
-                            UserName = "rougierjo",
-                            VisiteurId = 1
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -399,10 +379,12 @@ namespace GSB.api.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -439,10 +421,12 @@ namespace GSB.api.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");

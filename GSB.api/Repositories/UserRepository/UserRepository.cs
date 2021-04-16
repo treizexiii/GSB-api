@@ -1,3 +1,4 @@
+using System.Text;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -10,6 +11,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
+using System.Linq;
 
 namespace GSB.api.Repositories.UserRepository
 {
@@ -18,14 +21,17 @@ namespace GSB.api.Repositories.UserRepository
         private readonly GsbContext _context;
         private readonly UserManager<GSBapiUser> _userManager;
         private readonly SignInManager<GSBapiUser> _signInManager;
+        private readonly IConfiguration _configuration;
 
         public UserRepository(GsbContext context,
             UserManager<GSBapiUser> userManager,
-            SignInManager<GSBapiUser> signInManager)
+            SignInManager<GSBapiUser> signInManager,
+            IConfiguration configuration)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
+            _configuration = configuration;
         }
 
         public Task<Visiteur> GetAllUser()
@@ -33,13 +39,47 @@ namespace GSB.api.Repositories.UserRepository
             throw new System.NotImplementedException();
         }
 
-        public async Task<Visiteur> GetUserById(int id)
+        public async Task<GSBapiUser> GetUserById(int id)
         {
-            return await _context.Visiteurs.FirstOrDefaultAsync(v => v.Id == id);
+            return await _context.Users.Include(u => u.Visiteur).FirstOrDefaultAsync(u => u.VisiteurId == id);
         }
 
-        public async Task<UserManagerResponse> GetToken([FromBody] LoginRequest loginRequest) {
+        public async Task<UserManagerResponse> RegisterAsync(RegisterModel model) {
+            if (model == null) {
+                throw new NullReferenceException("Register model is null");
+            }
+
+            if (model.Password != model.ConfirmPassword) {
+                return new UserManagerResponse {
+                    Message = "Les mots de passe ne corresponde pas",
+                    IsSuccess = false
+                };
+            }
+
+            var identityUser = new GSBapiUser {
+                VisiteurId = 1,
+                UserName = model.UserName,
+            };
+
+            var result = await _userManager.CreateAsync(identityUser, model.Password);
+
+            if (result.Succeeded) {
+                return new UserManagerResponse {
+                    Message = "L'utilisateur a été créer avec succès",
+                    IsSuccess = true
+                };
+            }
+
+            return new UserManagerResponse {
+                Message = "L'utilisateur n'a pas été créer",
+                IsSuccess = false,
+                Errors = result.Errors.Select(e => e.Description)
+            };
+        }
+
+        public async Task<UserManagerResponse> LoginAsync(LoginRequest loginRequest) {
             var user = await _userManager.FindByNameAsync(loginRequest.Login);
+            //var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == loginRequest.Login);
 
             if (user == null) {
                 return new UserManagerResponse {
@@ -49,6 +89,7 @@ namespace GSB.api.Repositories.UserRepository
             }
 
             var result = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
+            //var result = user.Password.SequenceEqual(loginRequest.Password);
 
             if (!result) {
                 return new UserManagerResponse {
@@ -57,11 +98,39 @@ namespace GSB.api.Repositories.UserRepository
                 };
             }
 
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.VisiteurId.ToString()),
-                new Claim("Prenom", user.Visiteur.Prenom),
-                new Claim("Nom", user.Visiteur.Nom)
+            // var claims = new[]
+            // {
+            //     new Claim("visiteurId", user.VisiteurId.ToString()),
+            //     new Claim("roleId", user.Visiteur.RoleId.ToString()),
+            // };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AuthSettings:Key"]));
+
+            var tokenDescriptor = new SecurityTokenDescriptor {
+                Subject = new ClaimsIdentity(new Claim[] {
+                    new Claim("id", user.VisiteurId.ToString()),
+                }),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+            };
+
+            // var token = new JwtSecurityToken(
+            //     issuer: _configuration["AuthSettings:Issuer"],
+            //     audience: _configuration["AuthSettings:Audience"],
+            //     claims: claims,
+            //     expires: DateTime.Now.AddDays(1),
+            //     signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+            // );
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            string tokenAsString = tokenHandler.WriteToken(token);
+
+            return new UserManagerResponse {
+                UserInfo = tokenDescriptor.Subject.Claims.ToDictionary(c => c.Type, c => c.Value),
+                Message = tokenAsString,
+                IsSuccess = true,
+                ExpireDate = tokenDescriptor.Expires
             };
         }
     }
