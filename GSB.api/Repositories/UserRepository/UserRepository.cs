@@ -41,7 +41,7 @@ namespace GSB.api.Repositories.UserRepository
 
         public async Task<GSBapiUser> GetUserById(int id)
         {
-            return await _context.Users.Include(u => u.Visiteur).FirstOrDefaultAsync(u => u.VisiteurId == id);
+            return await _context.Users.Include(u => u.Visiteur).Include(u => u.Role).FirstOrDefaultAsync(u => u.VisiteurId == id);
         }
 
         public async Task<UserManagerResponse> RegisterAsync(RegisterModel model) {
@@ -59,6 +59,7 @@ namespace GSB.api.Repositories.UserRepository
             var identityUser = new GSBapiUser {
                 VisiteurId = 1,
                 UserName = model.UserName,
+                RoleId = 2
             };
 
             var result = await _userManager.CreateAsync(identityUser, model.Password);
@@ -79,7 +80,6 @@ namespace GSB.api.Repositories.UserRepository
 
         public async Task<UserManagerResponse> LoginAsync(LoginRequest loginRequest) {
             var user = await _userManager.FindByNameAsync(loginRequest.Login);
-            //var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == loginRequest.Login);
 
             if (user == null) {
                 return new UserManagerResponse {
@@ -89,7 +89,6 @@ namespace GSB.api.Repositories.UserRepository
             }
 
             var result = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
-            //var result = user.Password.SequenceEqual(loginRequest.Password);
 
             if (!result) {
                 return new UserManagerResponse {
@@ -98,29 +97,18 @@ namespace GSB.api.Repositories.UserRepository
                 };
             }
 
-            // var claims = new[]
-            // {
-            //     new Claim("visiteurId", user.VisiteurId.ToString()),
-            //     new Claim("roleId", user.Visiteur.RoleId.ToString()),
-            // };
-
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AuthSettings:Key"]));
 
             var tokenDescriptor = new SecurityTokenDescriptor {
                 Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim("id", user.VisiteurId.ToString()),
+                    new Claim("userId", user.VisiteurId.ToString()),
+                    new Claim("roleId", user.RoleId.ToString())
                 }),
                 Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256),
+                Issuer = _configuration["AuthSettings:Issuer"],
+                Audience = _configuration["AuthSettings:Audience"]
             };
-
-            // var token = new JwtSecurityToken(
-            //     issuer: _configuration["AuthSettings:Issuer"],
-            //     audience: _configuration["AuthSettings:Audience"],
-            //     claims: claims,
-            //     expires: DateTime.Now.AddDays(1),
-            //     signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
-            // );
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);

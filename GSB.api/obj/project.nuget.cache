@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NCMC7FAwp+rgG1se+hcOQvbjMfK+uDGEl46y2rSDoHfLH/pB90RmurgfYq8TIW56h5LgQkIBZuXS8JdvZh0vkA==",
+  "dgSpecHash": "R+DAPWQwbwrhbBwzrW554exrP6QH8oIlm0CtGu46lyx1Lkv77ANDBsVZOYU6O6fiezdYQLZPaid7vFYVM8LvQw==",
   "success": true,
-  "projectFilePath": "E:\\Developpement\\projet C#\\GSB\\GSB.api\\GSB.api.csproj",
+  "projectFilePath": "E:\\Developpement\\projet C#\\GSB\\GSB-api\\GSB.api\\GSB.api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\darkt\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\darkt\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.5\\microsoft.aspnetcore.authentication.jwtbearer.5.0.5.nupkg.sha512",

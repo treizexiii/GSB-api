@@ -7674,11 +7674,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Developpement\\projet C#\\GSB\\GSB.api\\GSB.api.csproj",
+      "projectUniqueName": "E:\\Developpement\\projet C#\\GSB\\GSB-api\\GSB.api\\GSB.api.csproj",
       "projectName": "GSB.api",
-      "projectPath": "E:\\Developpement\\projet C#\\GSB\\GSB.api\\GSB.api.csproj",
+      "projectPath": "E:\\Developpement\\projet C#\\GSB\\GSB-api\\GSB.api\\GSB.api.csproj",
       "packagesPath": "C:\\Users\\darkt\\.nuget\\packages\\",
-      "outputPath": "E:\\Developpement\\projet C#\\GSB\\GSB.api\\obj\\",
+      "outputPath": "E:\\Developpement\\projet C#\\GSB\\GSB-api\\GSB.api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -7701,8 +7701,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "E:\\Developpement\\projet C#\\GSB\\GSB.Shared\\GSB.Shared.csproj": {
-              "projectPath": "E:\\Developpement\\projet C#\\GSB\\GSB.Shared\\GSB.Shared.csproj"
+            "E:\\Developpement\\projet C#\\GSB\\GSB-api\\GSB.Shared\\GSB.Shared.csproj": {
+              "projectPath": "E:\\Developpement\\projet C#\\GSB\\GSB-api\\GSB.Shared\\GSB.Shared.csproj"
             }
           }
         }

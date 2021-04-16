@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GSB.api.Migrations
 {
     [DbContext(typeof(GsbContext))]
-    [Migration("20210416061742_CreateIdentity")]
-    partial class CreateIdentity
+    [Migration("20210416103257_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

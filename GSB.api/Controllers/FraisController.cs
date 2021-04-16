@@ -1,3 +1,5 @@
+using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using GSB.api.Repositories.FraisRepository;
 using Microsoft.AspNetCore.Authorization;
@@ -17,10 +19,10 @@ namespace GSB.api.Controllers
             _fraisRepository = fraisRepository;
         }
 
-        [HttpGet("{id}")]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetAllFrais(int id) {
-            return Ok(await _fraisRepository.GetAllFrais(id));
+        [HttpGet]
+        public async Task<IActionResult> GetAllFrais() {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return Ok(await _fraisRepository.GetAllFrais(Convert.ToInt32(userId)));
         }
 
         [HttpGet("{id}/{date}")]

@@ -89,7 +89,6 @@ namespace GSB.api.Data
                     CodePostal = 75015,
                     Ville = "Paris",
                     DateEmbauche = new DateTime(2020, 01, 01),
-                    RoleId = 2,
                     Email = "jonathan.rougier@hotmail.fr",
                 }
             );

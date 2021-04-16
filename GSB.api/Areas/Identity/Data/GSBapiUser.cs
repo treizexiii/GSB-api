@@ -14,5 +14,8 @@ namespace GSB.api.Areas.Identity.Data
         [Key]
         public int VisiteurId { get; set; }
         public Visiteur Visiteur { get; set; }
+        public int RoleId { get; set; }
+        public Role Role { get; set; }
+
     }
 }
