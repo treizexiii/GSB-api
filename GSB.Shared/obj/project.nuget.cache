@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "J7qEFbTYcqOph7s4iC35iUMAUnHt9TPscVDW7r4P80LnjfQ0r9MJRRttDyIGpP3/c00I5ehlFn7rnwbJiUqumQ==",
+  "dgSpecHash": "8PiWILMVHllW8Nmt5aMY7BAVe9bNgQW5c/wEl8/YRoVuOHu+u3SI3kGjgS2ty9iJ/IYNBc+7UEvbMk/b1vYUyQ==",
   "success": true,
-  "projectFilePath": "E:\\Developpement\\projet C#\\GSB\\GSB.Shared\\GSB.Shared.csproj",
+  "projectFilePath": "E:\\Developpement\\projet C#\\GSB\\GSB-api\\GSB.Shared\\GSB.Shared.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

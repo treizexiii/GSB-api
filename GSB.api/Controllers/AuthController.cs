@@ -1,11 +1,8 @@
 using System.Threading.Tasks;
-using GSB.api.Data;
 using GSB.api.Repositories.UserRepository;
 using GSB.api.Requirements;
-using GSB.Shared.Models;
 using GSB.Shared.RequestModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GSB.api.Controllers
@@ -23,7 +20,7 @@ namespace GSB.api.Controllers
         }
 
         [HttpGet("{id}")]
-        [ClaimRequirement("roleId", "1")]
+        [ClaimRequirement("roleId", "2")]
         public async Task<IActionResult> GetUserAsync(int id) {
             return Ok(await _userRepository.GetUserById(id));
         }

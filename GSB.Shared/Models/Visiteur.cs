@@ -10,7 +10,7 @@ namespace GSB.Shared.Models
         public string Prenom { get; set; }
         public string Nom { get; set; }
         public string Adresse { get; set; }
-        [Range(5,5,ErrorMessage="Le champ doit comporter 5 chiffres")]
+        [Range(5, 5, ErrorMessage = "Le champ doit comporter 5 chiffres")]
         public int CodePostal { get; set; }
         public string Ville { get; set; }
         [DataType(DataType.DateTime)]
@@ -20,8 +20,6 @@ namespace GSB.Shared.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateSortie { get; set; }
         public List<LigneFrais> LignesFrais { get; set; }
-        public int RoleId { get; set; }
-        public Role Role { get; set; }
         [EmailAddress]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }

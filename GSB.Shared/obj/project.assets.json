@@ -15,11 +15,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Developpement\\projet C#\\GSB\\GSB.Shared\\GSB.Shared.csproj",
+      "projectUniqueName": "E:\\Developpement\\projet C#\\GSB\\GSB-api\\GSB.Shared\\GSB.Shared.csproj",
       "projectName": "GSB.Shared",
-      "projectPath": "E:\\Developpement\\projet C#\\GSB\\GSB.Shared\\GSB.Shared.csproj",
+      "projectPath": "E:\\Developpement\\projet C#\\GSB\\GSB-api\\GSB.Shared\\GSB.Shared.csproj",
       "packagesPath": "C:\\Users\\darkt\\.nuget\\packages\\",
-      "outputPath": "E:\\Developpement\\projet C#\\GSB\\GSB.Shared\\obj\\",
+      "outputPath": "E:\\Developpement\\projet C#\\GSB\\GSB-api\\GSB.Shared\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

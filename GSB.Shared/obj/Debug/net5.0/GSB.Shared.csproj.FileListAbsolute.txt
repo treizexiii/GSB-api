@@ -10,3 +10,15 @@ E:\Developpement\projet C#\GSB\GSB.Shared\obj\Debug\net5.0\GSB.Shared.csproj.Cor
 E:\Developpement\projet C#\GSB\GSB.Shared\obj\Debug\net5.0\GSB.Shared.dll
 E:\Developpement\projet C#\GSB\GSB.Shared\obj\Debug\net5.0\ref\GSB.Shared.dll
 E:\Developpement\projet C#\GSB\GSB.Shared\obj\Debug\net5.0\GSB.Shared.pdb
+E:\Developpement\projet C#\GSB\GSB-api\GSB.Shared\bin\Debug\net5.0\GSB.Shared.deps.json
+E:\Developpement\projet C#\GSB\GSB-api\GSB.Shared\bin\Debug\net5.0\GSB.Shared.dll
+E:\Developpement\projet C#\GSB\GSB-api\GSB.Shared\bin\Debug\net5.0\ref\GSB.Shared.dll
+E:\Developpement\projet C#\GSB\GSB-api\GSB.Shared\bin\Debug\net5.0\GSB.Shared.pdb
+E:\Developpement\projet C#\GSB\GSB-api\GSB.Shared\obj\Debug\net5.0\GSB.Shared.csprojAssemblyReference.cache
+E:\Developpement\projet C#\GSB\GSB-api\GSB.Shared\obj\Debug\net5.0\GSB.Shared.GeneratedMSBuildEditorConfig.editorconfig
+E:\Developpement\projet C#\GSB\GSB-api\GSB.Shared\obj\Debug\net5.0\GSB.Shared.AssemblyInfoInputs.cache
+E:\Developpement\projet C#\GSB\GSB-api\GSB.Shared\obj\Debug\net5.0\GSB.Shared.AssemblyInfo.cs
+E:\Developpement\projet C#\GSB\GSB-api\GSB.Shared\obj\Debug\net5.0\GSB.Shared.csproj.CoreCompileInputs.cache
+E:\Developpement\projet C#\GSB\GSB-api\GSB.Shared\obj\Debug\net5.0\GSB.Shared.dll
+E:\Developpement\projet C#\GSB\GSB-api\GSB.Shared\obj\Debug\net5.0\ref\GSB.Shared.dll
+E:\Developpement\projet C#\GSB\GSB-api\GSB.Shared\obj\Debug\net5.0\GSB.Shared.pdb

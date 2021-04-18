@@ -8,9 +8,9 @@ namespace GSB.Shared.Models
     public class LigneFrais
     {
         [Key]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:MM-yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime Mois { get; set; }
+        // [DataType(DataType.DateTime)]
+        // [DisplayFormat(DataFormatString = "{0:MM-yyyy}", ApplyFormatInEditMode = true)]
+        public string Mois { get; set; }
 
         public List<FicheFrais> FicheFrais { get; set; }
 

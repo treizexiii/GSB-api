@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GSB.api.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class fixDateFicheFrais : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,6 +60,26 @@ namespace GSB.api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Visiteurs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Prenom = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Adresse = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CodePostal = table.Column<int>(type: "int", nullable: false),
+                    Ville = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateEmbauche = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateSortie = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Visiteurs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -81,38 +101,12 @@ namespace GSB.api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Visiteurs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Prenom = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Adresse = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CodePostal = table.Column<int>(type: "int", nullable: false),
-                    Ville = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateEmbauche = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateSortie = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Visiteurs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Visiteurs_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     VisiteurId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -132,6 +126,12 @@ namespace GSB.api.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_AspNetUsers_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_AspNetUsers_Visiteurs_VisiteurId",
                         column: x => x.VisiteurId,
                         principalTable: "Visiteurs",
@@ -143,7 +143,7 @@ namespace GSB.api.Migrations
                 name: "LignesFrais",
                 columns: table => new
                 {
-                    Mois = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Mois = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     VisiteurId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -246,9 +246,9 @@ namespace GSB.api.Migrations
                 name: "FichesFrais",
                 columns: table => new
                 {
-                    Mois = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Mois = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     VisiteurId = table.Column<int>(type: "int", nullable: false),
-                    LignesFraisMois = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LignesFraisMois = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     EtatId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ForfaitId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Justificatifs = table.Column<int>(type: "int", nullable: false),
@@ -317,8 +317,8 @@ namespace GSB.api.Migrations
 
             migrationBuilder.InsertData(
                 table: "Visiteurs",
-                columns: new[] { "Id", "Adresse", "CodePostal", "DateEmbauche", "DateSortie", "Email", "Nom", "Prenom", "RoleId", "Ville" },
-                values: new object[] { 1, "6 rue de Viroflay", 75015, new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "jonathan.rougier@hotmail.fr", "Rougier", "Jonathan", 2, "Paris" });
+                columns: new[] { "Id", "Adresse", "CodePostal", "DateEmbauche", "DateSortie", "Email", "Nom", "Prenom", "Ville" },
+                values: new object[] { 1, "6 rue de Viroflay", 75015, new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "jonathan.rougier@hotmail.fr", "Rougier", "Jonathan", "Paris" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -353,6 +353,11 @@ namespace GSB.api.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_RoleId",
+                table: "AspNetUsers",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_VisiteurId",
                 table: "AspNetUsers",
                 column: "VisiteurId");
@@ -383,11 +388,6 @@ namespace GSB.api.Migrations
                 name: "IX_LignesFrais_VisiteurId",
                 table: "LignesFrais",
                 column: "VisiteurId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Visiteurs_RoleId",
-                table: "Visiteurs",
-                column: "RoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -426,10 +426,10 @@ namespace GSB.api.Migrations
                 name: "LignesFrais");
 
             migrationBuilder.DropTable(
-                name: "Visiteurs");
+                name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Visiteurs");
         }
     }
 }

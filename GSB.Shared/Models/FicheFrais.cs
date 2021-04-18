@@ -7,9 +7,9 @@ namespace GSB.Shared.Models
 {
     public class FicheFrais
     {
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:MM-yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime Mois { get; set; }
+        // [DataType(DataType.DateTime)]
+        // [DisplayFormat(DataFormatString = "{0:MM-yyyy}", ApplyFormatInEditMode = true)]
+        public string Mois { get; set; }
         public LigneFrais LignesFrais { get; set; }
 
         public string EtatId { get; set; }

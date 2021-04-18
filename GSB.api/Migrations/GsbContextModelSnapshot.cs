@@ -59,8 +59,8 @@ namespace GSB.api.Migrations
                     b.Property<int>("VisiteurId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Mois")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Mois")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateModification")
                         .HasColumnType("datetime2");
@@ -74,8 +74,8 @@ namespace GSB.api.Migrations
                     b.Property<int>("Justificatifs")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("LignesFraisMois")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("LignesFraisMois")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("MontantValide")
                         .HasColumnType("decimal(18,2)");
@@ -135,8 +135,8 @@ namespace GSB.api.Migrations
 
             modelBuilder.Entity("GSB.Shared.Models.LigneFrais", b =>
                 {
-                    b.Property<DateTime>("Mois")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Mois")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("VisiteurId")
                         .HasColumnType("int");

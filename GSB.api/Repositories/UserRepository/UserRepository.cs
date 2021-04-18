@@ -101,7 +101,7 @@ namespace GSB.api.Repositories.UserRepository
 
             var tokenDescriptor = new SecurityTokenDescriptor {
                 Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim("userId", user.VisiteurId.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, user.VisiteurId.ToString()),
                     new Claim("roleId", user.RoleId.ToString())
                 }),
                 Expires = DateTime.Now.AddDays(1),

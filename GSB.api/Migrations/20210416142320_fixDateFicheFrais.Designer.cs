@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GSB.api.Migrations
 {
     [DbContext(typeof(GsbContext))]
-    [Migration("20210416103257_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210416142320_fixDateFicheFrais")]
+    partial class fixDateFicheFrais
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,8 +61,8 @@ namespace GSB.api.Migrations
                     b.Property<int>("VisiteurId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Mois")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Mois")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DateModification")
                         .HasColumnType("datetime2");
@@ -76,8 +76,8 @@ namespace GSB.api.Migrations
                     b.Property<int>("Justificatifs")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("LignesFraisMois")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("LignesFraisMois")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("MontantValide")
                         .HasColumnType("decimal(18,2)");
@@ -137,8 +137,8 @@ namespace GSB.api.Migrations
 
             modelBuilder.Entity("GSB.Shared.Models.LigneFrais", b =>
                 {
-                    b.Property<DateTime>("Mois")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Mois")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("VisiteurId")
                         .HasColumnType("int");
@@ -205,15 +205,10 @@ namespace GSB.api.Migrations
                     b.Property<string>("Prenom")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Ville")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("Visiteurs");
 
@@ -228,7 +223,6 @@ namespace GSB.api.Migrations
                             Email = "jonathan.rougier@hotmail.fr",
                             Nom = "Rougier",
                             Prenom = "Jonathan",
-                            RoleId = 2,
                             Ville = "Paris"
                         });
                 });
@@ -275,6 +269,9 @@ namespace GSB.api.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -297,6 +294,8 @@ namespace GSB.api.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("RoleId");
 
                     b.HasIndex("VisiteurId");
 
@@ -478,7 +477,7 @@ namespace GSB.api.Migrations
                     b.Navigation("Visiteur");
                 });
 
-            modelBuilder.Entity("GSB.Shared.Models.Visiteur", b =>
+            modelBuilder.Entity("GSB.api.Areas.Identity.Data.GSBapiUser", b =>
                 {
                     b.HasOne("GSB.Shared.Models.Role", "Role")
                         .WithMany()
@@ -486,16 +485,13 @@ namespace GSB.api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("GSB.api.Areas.Identity.Data.GSBapiUser", b =>
-                {
                     b.HasOne("GSB.Shared.Models.Visiteur", "Visiteur")
                         .WithMany()
                         .HasForeignKey("VisiteurId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Role");
 
                     b.Navigation("Visiteur");
                 });
